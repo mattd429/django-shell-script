@@ -37,7 +37,7 @@ echo "${green}>>> .env is created${reset}"
 sleep 2
 echo "${green}>>> activate the .env${reset}"
 source env/bin/activate
-PS1="('basename \"$VIRTUAL_ENV"')\\e[1;34m:/\W\e[00m$ "
+PS1="(`basename \"$VIRTUAL_ENV\"`)\e[1;34m:/\W\e[00m$ "
 sleep 2
 
 # installdjango
