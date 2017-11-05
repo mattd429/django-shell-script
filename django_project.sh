@@ -98,7 +98,7 @@ from $PROJECT.core.forms import PersonForm
 from .data import PERSON_DICT
 class PersonFormTest(TestCase):
     def test_form_has_fields(self):
-        ''' Form must have 10 fields '''
+        
         form = PersonForm()
         expected = ['first_name', 'last_name', 'email', 'address',
                     'complement', 'district', 'city', 'uf', 'cep', 'blocked']
