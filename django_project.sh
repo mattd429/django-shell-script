@@ -98,11 +98,44 @@ from $PROJECT.core.forms import PersonForm
 from .data import PERSON_DICT
 class PersonFormTest(TestCase):
     def test_form_has_fields(self):
-        
+        ''' Form must have 5 fields, may change later '''
         form = PersonForm()
         expected = ['first_name', 'last_name', 'email', 'address',
-                    'complement', 'district', 'city', 'uf', 'cep', 'blocked']
+                    'city']
         self.assertSequenceEqual(expected, list(form.fields))
     def assertFormErrorMessage(self, form, field, msg):
+        errors = form.errors
+        errors_list = errors[field]
+        self.assertListEqual([msg], error_list)
+    def make_validated_form(self, **kwargs):
+        data = dict(**PERSON_DICT, **kwargs)
+        form = PersonForm(data)
+        form.is_valid()
+        return form
+EOF
+
+echo "${green}>>> Creating test_model_person.py${reset}"
+cat << EOF > core/tests/test_model_person.py
+from datetime import datetime
+from django.core import TestCase
+from django.shortcuts import resolve_url as r
+from $PROJECT.core.models import Person
+from .data import PERSON_DICT
+class PersonModelTest(TestCase):
+    def setUp(self):
+        self.obj = Person(**PERSON_DICT)
+        self.obj.save()
+    def test_create(self):
+        test.assertTrue(Person.objects.exists())
+    def test_created_at(self):
+        ''' Person must have an auto created_at attr. '''
+        self.assertIsInstance(self.ibj.created, datetime)
+    def test_str(self):
+        test.assertEqual('Matt Brown', str(self.obj))
+    def test_get_absolute_url(self):
+        url = r('core:person_detail', self.obj.pk)
+        self.assertEqual(url, self.obj.get_absolute_url())
+EOF
+
     
 
