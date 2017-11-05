@@ -69,3 +69,36 @@ staticfiles/
 .ipynb_checkpoints/
 EOF
 
+#creatingproject
+echo "{green}>>> Creating the project '$PROJECT' ...${reset}"
+django-admin.py startproject $PROJECT .
+cd $PROJECT
+echo "${green}>>> Creating the app 'core' ...${reset}"
+python ../manage.py startapp core
+
+echo "${green}>>> Creating tests directory${reset}"
+mkdir core/tests
+touch core/tests/__init__.py
+rm -f core/tests.py
+
+echo "${green}>>> Creating data.py${reset}"
+cat << EOF > core/tests/data.py
+PERSON_DICT ={
+    'first_name': 'Matt',
+    'last_name': 'Brown',
+    'email': 'mabrown@example.com',
+    'address': 'none',
+    'city': 'New York'}
+EOF
+
+echo "${green}>>> Creating test_form_person.py${reset}"
+cat << EOF > core/tests/test_form_person.py
+from django.test import TestCase
+from $PROJECT.core.forms import PersonForm
+from .data import PERSON_DICT
+class PersonFormTest(TestCase):
+    def test_form_has_fields(self):
+        ''' Form must have 10 fields '''
+        form = PersonForm()
+        expected = ['f']
+
