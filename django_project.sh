@@ -54,3 +54,18 @@ SECRET_KEY=''
 ALLOWED_HOSTS=127.0.0.1, .localhost
 EOF
 
+echo "${green}>>> Copy env-sample to .env${reset}"
+cp contrib/env-sample .env
+
+echo "${green}>>> Creating .gitignore${reset}"
+cat << EOF > .gitignore
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.env
+*.DS_Store
+.venv/
+staticfiles/
+.ipynb_checkpoints/
+EOF
+
