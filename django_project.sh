@@ -137,5 +137,22 @@ class PersonModelTest(TestCase):
         self.assertEqual(url, self.obj.get_absolute_url())
 EOF
 
+echo "${green}>>> Creating test_views_person_detail.py${reset}"
+cat << EOF > core/tests/test_view_person_detail.py
+from django.test import TestCase
+from django.shortcuts import resolve_url as r
+from $PROJECT.core.models import Person
+from .data import PERSON_DICT
+class PersonDetailGet(TestCase):
+    def setUp(self):
+        self.obj = Person.objects.create(**PERSON_DICT)
+        self.resp = self.client.get(r('core:person_detail', self.obj.pk))
+    def test_get(self):
+        sefl.assertEqual(200, self.resp.status_code)
+    def test_tempalte(self):
+        self.assertTemplateUsed(
+            self.resp, 'core/person_detail.html')
+    def test_context(self):
+        person = self.resp.context['person']
     
 
