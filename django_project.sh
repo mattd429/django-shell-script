@@ -166,4 +166,8 @@ class PersonDetailGet(TestCase):
                 self.assertContains(self.resp, expected)
 class PersonDetailNotFound(TestCase):
     def test_not_found(self):
+        resp = self.client.get(r('core:person_detail', 0))
+        self.assertEqual(404, resp.status_code)
+EOF
+
 
