@@ -170,4 +170,13 @@ class PersonDetailNotFound(TestCase):
         self.assertEqual(404, resp.status_code)
 EOF
 
+echo "${green}>>> Creating test_view_person_list.py${reset}"
+cat << EOF > core/tests/test_view_person_list.py
+from django.test import TestCase
+from django.shortcuts import resolve_url as r
+from $PROJECT.core.models import Person
+from .data import PERSON_DICT
+class TalkListGet(TestCase):
+    def setUp(self):
+
 
