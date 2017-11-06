@@ -196,6 +196,12 @@ class TalkListGet(TestCase):
         subtest fails, allowing you to identify them clearly.
         """
         for count, expected in contents:
-            with self.subTest()
+            with self.subTest():
+                self.assertContains(self.resp, expected, count)
+class PersonGetEmpty(TestCase):
+    def test_get_empty(self):
+        response = self.client.get(r('core:person_list'))
+        self.assertContains(response, 'No items in the list.')
+EOF
 
 
