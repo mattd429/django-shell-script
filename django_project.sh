@@ -164,5 +164,6 @@ class PersonDetailGet(TestCase):
         with self.subTest():
             for expected in contents:
                 self.assertContains(self.resp, expected)
-    
+class PersonDetailNotFound(TestCase):
+    def test_not_found(self):
 
