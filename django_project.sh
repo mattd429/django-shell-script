@@ -154,5 +154,15 @@ class PersonDetailGet(TestCase):
             self.resp, 'core/person_detail.html')
     def test_context(self):
         person = self.resp.context['person']
+        self.assertIsInstance(person, Person)
+    def test_html(self):
+        contents = (self.obj.first_name,
+                    self.obj.last_name,
+                    self.obj.email,
+                    self.obj.address,
+                    self.obj.city)
+        with self.subTest():
+            for expected in contents:
+                self.assertContains(self.resp, expected)
     
 
