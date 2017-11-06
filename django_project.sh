@@ -178,5 +178,24 @@ from $PROJECT.core.models import Person
 from .data import PERSON_DICT
 class TalkListGet(TestCase):
     def setUp(self):
+        self.obj = Person.objects.create(**PERSON_DICT)
+        self.resp = self.client.get(r('core:person_list'))
+    def test_get(self):
+        self.assertEqual(200, self.resp.status_code)
+    def test_template(self):
+        self.assertTemplateUsed(self.resp, 'core/person_list.html')
+    def test_html(self):
+        contents = [
+            (1, 'Matt Brown'),
+            (1, 'mabrown@example.com'),
+            (1, 'New York'),
+        ]
+        """
+        Return a context manager which executes the enclosed code block as a subtest. 
+        msg and params are optional, arbitrary values which are displayed whenever a 
+        subtest fails, allowing you to identify them clearly.
+        """
+        for count, expected in contents:
+            with self.subTest()
 
 
