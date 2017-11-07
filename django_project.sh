@@ -254,7 +254,47 @@ body {
 }
 EOF
 
-echo 
+echo "${green}>>> Creating social.css${reset}"
+cat << EOF > core/static/css/social.css
+/* http://www.kodingmadesimple.com/2014/11/create-stylish-bootstrap-3-social-media-icons.html */
+.social {
+    margin: 0;
+    padding 0;
+}
+.social ul {
+    margin: 0;
+    padding: 5px;
+}
+.social i {
+    margin: 5px;
+    list-style: none outside none;
+    display: inline-block;
+}
+.social i {
+    width: 40ps;
+    height: 40px;
+    color: #FFF;
+    background-color: #909AA0;
+    font-size: 22px;
+    text-align:center;
+    padding-top: 12px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    transition: all ease 0.3s;
+    -moz-transition: all ease 0.3s;
+    -o-transition: all ease 0.3s;
+    -ms-transition: all ease 0.3s;
+    text-decoration: none;
+}
+.social .fa-facebook {
+    background: #4060A5;
+}
+.social .fa-twitter {
+    background: #00ABE3;
+}
+
 
 
 
