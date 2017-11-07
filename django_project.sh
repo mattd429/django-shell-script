@@ -19,7 +19,7 @@
 # Colors
 red='tput setaf 1'
 green='tput setaf 2'
-reset='tput sgr0'
+reset='tput sgr0' # Turn off all attributes
 
 PROJECT=${1-tutorial}
 
@@ -203,5 +203,15 @@ class PersonGetEmpty(TestCase):
         response = self.client.get(r('core:person_list'))
         self.assertContains(response, 'No items in the list.')
 EOF
+
+ehco "${green}>>> Creating static/css directory${reset}"
+# -p will created directory if does not exist...
+mkdir -p core/static/css
+
+echo "${green}>>> Creating.main.css${reset}"
+cat << EOF > core/static/css/main.css
+/* Sticky footer styles
+-------------------------------------------------- */
+
 
 
