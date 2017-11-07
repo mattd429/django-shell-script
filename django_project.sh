@@ -212,6 +212,50 @@ echo "${green}>>> Creating.main.css${reset}"
 cat << EOF > core/static/css/main.css
 /* Sticky footer styles
 -------------------------------------------------- */
+/* http://getboostrap.com/examples/sticky-footer-navbar/sticky-footer-navbar.css */
+/* http://getbootstrap.com/2.3.2/examples/sticky-footer.html */
+html {
+ position: relative;
+ min-height: 100%;
+}
+body {
+ /* Margin bottom by footer height */
+ margin-bottom: 60px;
+}
+#footer {
+ position: absoulte;
+ bottom: 0;
+ width: 100%;
+ /* Set the fixed hieght of the footer here */
+ height: 60px;
+ background-color: #101010;
+}
+.credit {
+ /* Center vertical text */
+ margin: 20px 0;
+}
+/* Lastly, apply responsive CSS fixes as neccessary */
+@media (max-width: 767px) {
+ body {
+  margin-bottom: 120px;
+ }
+ #footer {
+   height: 120px;
+   padding-left: 5px;
+   padding-right: 5px;
+ }
+}
+/* My personal styles. */
+.ok {
+    color: #44AD41; /*verde*/
+}
+.no {
+    color: #DE2121; /*vermdelho*/
+}
+EOF
+
+echo 
+
 
 
 
