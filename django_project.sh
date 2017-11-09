@@ -367,3 +367,19 @@ cat << EOF > core/static/css/social.css
     list-style: none outside none;
     display: inline-block;
 }
+.socialfooter i {
+    color: #FFF;
+    font-size: 22px;
+    text-align:center;
+    padding-top: 12px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    transition: all ease 0.3s;
+    -moz-transition: all ease 0.3s;
+    -webkit-transition: all ease 0.3s;
+    -o-transition: all ease 0.3s;
+    -ms-transition: all ease 0.3s;
+    text-decoration: none;
+}
