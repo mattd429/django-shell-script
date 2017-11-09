@@ -306,6 +306,9 @@ cat << EOF > core/static/css/social.css
 .social .fa-linkedin {
     background: #0094BC;
 }
+.social .fa-flickr {
+    background: #FF57AE;
+}
 
 
 
