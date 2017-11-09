@@ -351,3 +351,6 @@ cat << EOF > core/static/css/social.css
 .social .fa-slack {
     background: #4F3A4B;
 }
+.social .fa-whatsapp {
+    background: #65BC54;
+}
