@@ -318,6 +318,9 @@ cat << EOF > core/static/css/social.css
 .social .fa-stack-overflow {
     background: #FEA501;
 }
+.social .fa-dropbox {
+    background: #017FE5;
+}
 
 
 
