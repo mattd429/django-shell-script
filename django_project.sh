@@ -324,6 +324,9 @@ cat << EOF > core/static/css/social.css
 .social .fa-tumblr {
     background: #3a5876;
 }
+.social .fa-dribbble {
+    background: #F46899;
+}
 
 
 
