@@ -383,3 +383,7 @@ cat << EOF > core/static/css/social.css
     -ms-transition: all ease 0.3s;
     text-decoration: none;
 }
+.socialfooter i:hover {
+    color: #00ABE3;
+}
+EOF
