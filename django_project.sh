@@ -303,7 +303,9 @@ cat << EOF > core/static/css/social.css
 .social .fa-pinterest {
     background: #cb2027;
 }
-
+.social .fa-linkedin {
+    background: #0094BC;
+}
 
 
 
