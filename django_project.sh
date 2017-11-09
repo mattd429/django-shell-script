@@ -312,6 +312,9 @@ cat << EOF > core/static/css/social.css
 .social .fa-instagram {
     background: #375989;
 }
+.social .fa-vimeo-square {
+    background: #83DAEB;
+}
 
 
 
