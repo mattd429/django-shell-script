@@ -333,7 +333,9 @@ cat << EOF > core/static/css/social.css
 .social .fa-stack-exchange {
     background: #4D86C9;
 }
-
+.social .fa-youtube {
+    background: #FF1F25;
+}
 
 
 
