@@ -309,6 +309,9 @@ cat << EOF > core/static/css/social.css
 .social .fa-flickr {
     background: #FF57AE;
 }
+.social .fa-instagram {
+    background: #375989;
+}
 
 
 
