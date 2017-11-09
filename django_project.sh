@@ -300,6 +300,9 @@ cat << EOF > core/static/css/social.css
 .social .fa-github {
     background: #343434;
 }
+.social .fa-pinterest {
+    background: #cb2027;
+}
 
 
 
