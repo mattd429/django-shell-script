@@ -339,5 +339,7 @@ cat << EOF > core/static/css/social.css
 .social .fa-xing {
     background: #005C5E;
 }
-
+.social .fa-rss {
+    background: #e88845;
+}
 
