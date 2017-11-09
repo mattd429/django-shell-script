@@ -358,3 +358,7 @@ cat << EOF > core/static/css/social.css
     margin: 0;
     padding: 0;
 }
+.socialfooter ul {
+    margin: 0;
+    padding: 5px;
+}
