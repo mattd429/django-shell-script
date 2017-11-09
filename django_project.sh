@@ -354,3 +354,7 @@ cat << EOF > core/static/css/social.css
 .social .fa-whatsapp {
     background: #65BC54;
 }
+.socialfooter {
+    margin: 0;
+    padding: 0;
+}
