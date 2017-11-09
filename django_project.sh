@@ -297,6 +297,9 @@ cat << EOF > core/static/css/social.css
 .social .fa-google-plus {
     background: #e64522;
 }
+.social .fa-github {
+    background: #343434;
+}
 
 
 
