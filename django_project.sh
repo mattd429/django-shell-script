@@ -348,3 +348,6 @@ cat << EOF > core/static/css/social.css
 .social .fa-youtube-play {
     background: #DF192A;
 }
+.social .fa-slack {
+    background: #4F3A4B;
+}
