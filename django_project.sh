@@ -342,4 +342,6 @@ cat << EOF > core/static/css/social.css
 .social .fa-rss {
     background: #e88845;
 }
-
+.social .fa-foursquare {
+    background: #09B9E0;
+}
