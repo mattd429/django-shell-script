@@ -345,3 +345,6 @@ cat << EOF > core/static/css/social.css
 .social .fa-foursquare {
     background: #09B9E0;
 }
+.social .fa-youtube-play {
+    background: #DF192A;
+}
