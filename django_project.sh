@@ -327,6 +327,9 @@ cat << EOF > core/static/css/social.css
 .social .fa-dribbble {
     background: #F46899;
 }
+.social .fa-skype {
+    background: #00C6FF;
+}
 
 
 
