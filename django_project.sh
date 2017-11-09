@@ -336,6 +336,8 @@ cat << EOF > core/static/css/social.css
 .social .fa-youtube {
     background: #FF1F25;
 }
-
+.social .fa-xing {
+    background: #005C5E;
+}
 
 
