@@ -315,6 +315,9 @@ cat << EOF > core/static/css/social.css
 .social .fa-vimeo-square {
     background: #83DAEB;
 }
+.social .fa-stack-overflow {
+    background: #FEA501;
+}
 
 
 
