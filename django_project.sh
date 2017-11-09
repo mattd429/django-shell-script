@@ -362,3 +362,8 @@ cat << EOF > core/static/css/social.css
     margin: 0;
     padding: 5px;
 }
+.socialfooter ul li {
+    margin: 5px;
+    list-style: none outside none;
+    display: inline-block;
+}
