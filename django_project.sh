@@ -387,3 +387,6 @@ cat << EOF > core/static/css/social.css
     color: #00ABE3;
 }
 EOF
+
+echo "${green}>>> Creating templates directory${reset}"
+mkdir -p core/templates/core
