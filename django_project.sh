@@ -454,3 +454,18 @@ cat << EOF > core/templates/footer.html
   </div>
 </div>
 EOF
+
+echo "${green}>>> Creating index.html${reset}"
+cat << EOF > core/templates/index.html
+{% extends "base.html" %}
+{% block content %}
+  <div class="jumbotron">
+    <h1>Bem vindo!</h1>
+    <a href="{% url 'core:person_add' %}">
+      <button id="new_customer" type="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus"></span> Cadastre-se
+      </button>
+    </a>
+  </div>
+{% endblock content %}
+EOF
