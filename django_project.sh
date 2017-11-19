@@ -540,4 +540,20 @@ cat << EOF > core/templates/core/person_detail.html
     {% if object.email %}
       <h4><span class="glyphicon glyphicon-envelope"></span><a href="#"> {{ object.email }}</a></h4>
     {% endif %}
+        <div class="social">
+      <ul>
+        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+        <li><a href="#"><i class="fa fa-github"></i></a></li>
+        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+        <li><a href="#"><i class="fa fa-skype"></i></a></li>
+        <li><a href="#"><i class="fa fa-slack"></i></a></li>
+      </ul>
+    </div>
+  </div>
+  </br>
+  
     
