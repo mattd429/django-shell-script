@@ -587,6 +587,13 @@ cat << EOF > core/templates/core/person_detail.html
           </td>
         </tr>
       {% endif %}
+            <tr>
+        <th class="col-md-3 text-right">Bloqueado</th>
+          <td><span class="glyphicon {{ object.blocked|yesno:'glyphicon-ok-sign ok,glyphicon-minus-sign no'}}"></span></td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- edit -->
       
       
   
