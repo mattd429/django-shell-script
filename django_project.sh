@@ -728,6 +728,13 @@ cat << EOF > core/templates/core/person_form.html
 </form>
 {% endblock content %}
 EOF
+
+echo "{green}>>> Creating person_list.html${reset}"
+cat << EOF > core/templates/core/person_list.html
+{% extends 'base.html' %}
+{% block title %}Contracts{% endblock title %}
+{% block content %}
+EOF
       
   
     
