@@ -747,6 +747,11 @@ cat << EOF > core/templates/core/person_list.html
       <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
   </div>
 </form>
+<div class="page-header">
+<h2><h2><i class="fa fa-user"></i> Lista de Contatos</h2>
+</div>
+<div>
+
 
 EOF
   
