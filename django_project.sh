@@ -720,6 +720,14 @@ cat << EOF > core/templates/core/person_form.html
             {{ form.blocked }} {{ form.blocked.errors }}
         </div>
     </div>
+        <div class="form-group">
+      <div class="col-sm-2 col-sm-offset-2">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+</form>
+{% endblock content %}
+EOF
       
   
     
