@@ -704,6 +704,14 @@ cat << EOF > core/templates/core/person_form.html
             {{ form.uf|attr:"class:form-control" }} {{ form.uf.errors }}
         </div>
     </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2 col-lg-2">
+            {{ form.cep.label }}
+        </label>
+        <div class="col-sm-4 col-lg-4">
+            {{ form.cep|attr:"class:form-control" }} {{ form.cep.errors }}
+        </div>
+    </div>
       
   
     
