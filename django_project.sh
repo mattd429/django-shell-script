@@ -741,6 +741,12 @@ cat << EOF > core/templates/core/person_list.html
             <span class="glyphicon glyphicon-plus"></span> Adicionar
         </button>
     </a>
+    <!-- search form -->
+    <div class="form-group">
+      <input id="search_box" name="search_box" type="text" placeholder="Localizar..." class="form-control">
+      <button type="submit" class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span></button>
+  </div>
+</form>
 
 EOF
   
