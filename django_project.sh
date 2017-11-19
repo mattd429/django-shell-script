@@ -712,6 +712,14 @@ cat << EOF > core/templates/core/person_form.html
             {{ form.cep|attr:"class:form-control" }} {{ form.cep.errors }}
         </div>
     </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2 col-lg-2">
+            {{ form.blocked.label }}
+        </label>
+        <div class="col-sm-4 col-lg-4">
+            {{ form.blocked }} {{ form.blocked.errors }}
+        </div>
+    </div>
       
   
     
