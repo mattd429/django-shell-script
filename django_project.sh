@@ -535,3 +535,9 @@ cat << EOF > core/templates/core/person_detail.html
   <div class="col-md-2 column">
     <img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png" class="img-square" style="height: 100px;" />
   </div>
+    <div class="col-md-offset-3 column">
+    <h1>{{ object.full_name }}</h1>
+    {% if object.email %}
+      <h4><span class="glyphicon glyphicon-envelope"></span><a href="#"> {{ object.email }}</a></h4>
+    {% endif %}
+    
