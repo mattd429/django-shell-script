@@ -637,6 +637,18 @@ cat << EOF > core/templates/core/person_form.html
 <div class="page-header">
     <h2>New Contact</h2>
 </div>
+<form class="form-horizontal" action="." method="POST">
+    {% csrf_token %}
+    {{ form.non_fields_errors }}
+    <div class="form-group">
+        <label class="control-label col-sm-2 col-lg-2">
+            {{ form.first_name.label }}
+        </label>
+        <div class="col-sm-4 col-lg-4">
+            {{ form.first_name|attr:"class:form-control" }} {{ form.first_name.errors }}
+        </div>
+    </div>
+    
       
       
   
