@@ -531,3 +531,7 @@ cat << EOF > core/templates/core/person_detail.html
   <li><a href="{% url 'core:person_list' %}">Contatos</a> <span class="divider"></span></li>
   <li class="active">{{ object.full_name }}</li>
 </ul>
+<div class="col-lg-8">
+  <div class="col-md-2 column">
+    <img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png" class="img-square" style="height: 100px;" />
+  </div>
