@@ -696,6 +696,14 @@ cat << EOF > core/templates/core/person_form.html
             {{ form.city|attr:"class:form-control" }} {{ form.city.errors }}
         </div>
     </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2 col-lg-2">
+            {{ form.uf.label }}
+        </label>
+        <div class="col-sm-4 col-lg-4">
+            {{ form.uf|attr:"class:form-control" }} {{ form.uf.errors }}
+        </div>
+    </div>
       
   
     
