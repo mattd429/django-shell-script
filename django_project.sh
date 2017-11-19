@@ -570,6 +570,14 @@ cat << EOF > core/templates/core/person_detail.html
           <td>---</td>
         </tr>
       {% endif %}
+      {% if object.address %}
+        <tr>
+          <th class="col-md-3 text-right"><span class="glyphicon glyphicon-map-marker"></span></th>
+          <td>{{ object.address }}
+            {% if object.complement %} - {{ object.complement }}{% endif %}
+            {% if object.district %} - {{ object.district }}{% endif %}
+          </td>
+        </tr>
       
   
     
