@@ -578,6 +578,16 @@ cat << EOF > core/templates/core/person_detail.html
             {% if object.district %} - {{ object.district }}{% endif %}
           </td>
         </tr>
+        <tr>
+          <th class="col-md-3 text-right"></th>
+          <td>
+            {% if object.city %}{{ object.city }}{% endif %}
+            {% if object.uf %} - {{ object.uf }}{% endif %}
+            {% if object.cep %} - {{ object.cep }}{% endif %}
+          </td>
+        </tr>
+      {% endif %}
+      
       
   
     
