@@ -680,7 +680,14 @@ cat << EOF > core/templates/core/person_form.html
             {{ form.complement|attr:"class:form-control" }} {{ form.complement.errors }}
         </div>
     </div>
-    
+    <div class="form-group">
+        <label class="control-label col-sm-2 col-lg-2">
+            {{ form.district.label }}
+        </label>
+        <div class="col-sm-4 col-lg-4">
+            {{ form.district|attr:"class:form-control" }} {{ form.district.errors }}
+        </div>
+    </div>
       
       
   
