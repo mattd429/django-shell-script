@@ -555,5 +555,15 @@ cat << EOF > core/templates/core/person_detail.html
     </div>
   </div>
   </br>
+  <table class="table table-user-information">
+    <tbody>
+      {% if object.phone_set.all %}
+        {% for phone in object.phone_set.all %}
+          <tr>
+            <th class="col-md-3 text-right"><span class="glyphicon glyphicon-earphone"></span></th>
+            <td>{{ phone.phone }} <i class="fa fa-whatsapp ok"></i> {{ phone.get_phone_type_display }}</td>
+          </tr>
+        {% endfor %}
+      
   
     
