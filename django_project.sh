@@ -656,6 +656,14 @@ cat << EOF > core/templates/core/person_form.html
             {{ form.last_name|attr:"class:form-control" }} {{ form.last_name.errors }}
         </div>
     </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2 col-lg-2">
+            {{ form.email.label }}
+        </label>
+        <div class="col-sm-4 col-lg-4">
+            {{ form.email|attr:"class:form-control" }} {{ form.email.errors }}
+        </div>
+    </div>
     
       
       
