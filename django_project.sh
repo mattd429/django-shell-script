@@ -734,7 +734,14 @@ cat << EOF > core/templates/core/person_list.html
 {% extends 'base.html' %}
 {% block title %}Contracts{% endblock title %}
 {% block content %}
+<form class="navbar-form navbar-right" action="." method="get">
+    <!-- add -->
+    <a href="{% url 'core:person_add' %}">
+        <button id="new" type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus"></span> Adicionar
+        </button>
+    </a>
+
 EOF
-      
   
     
