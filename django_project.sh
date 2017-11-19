@@ -688,7 +688,14 @@ cat << EOF > core/templates/core/person_form.html
             {{ form.district|attr:"class:form-control" }} {{ form.district.errors }}
         </div>
     </div>
-      
+    <div class="form-group">
+        <label class="control-label col-sm-2 col-lg-2">
+            {{ form.city.label }}
+        </label>
+        <div class="col-sm-4 col-lg-4">
+            {{ form.city|attr:"class:form-control" }} {{ form.city.errors }}
+        </div>
+    </div>
       
   
     
