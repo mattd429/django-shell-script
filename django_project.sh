@@ -594,6 +594,11 @@ cat << EOF > core/templates/core/person_detail.html
     </tbody>
   </table>
   <!-- edit -->
+    <a href="{% url 'core:person_edit' person.pk %}">
+      <button id="edit_person" type="button" class="btn btn-success">
+          <span class="fa fa-pencil"></span> Editar
+      </button>
+  </a>
       
       
   
