@@ -564,6 +564,12 @@ cat << EOF > core/templates/core/person_detail.html
             <td>{{ phone.phone }} <i class="fa fa-whatsapp ok"></i> {{ phone.get_phone_type_display }}</td>
           </tr>
         {% endfor %}
+      {% else %}
+        <tr>
+          <th class="col-md-3 text-right"><span class="glyphicon glyphicon-earphone"></span></th>
+          <td>---</td>
+        </tr>
+      {% endif %}
       
   
     
