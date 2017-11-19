@@ -599,6 +599,34 @@ cat << EOF > core/templates/core/person_detail.html
           <span class="fa fa-pencil"></span> Editar
       </button>
   </a>
+  <!-- delete with modal -->
+  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+      <span class="fa fa-times"></span> Excluir
+  </button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+      </div>
+        <form action="{% url 'core:person_delete' person.id %}" method="POST">
+      <div class="modal-body">
+          {% csrf_token %}
+          Deseja mesmo deletar "{{ object }}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <input type="submit" class="btn btn-danger" value="Deletar" />
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+EOF
       
       
   
