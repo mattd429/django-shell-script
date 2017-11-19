@@ -634,6 +634,9 @@ cat << EOF > core/templates/core/person_form.html
 {% load widget_tweaks %}
 {% block title %}Person Form{% endblock title %}
 {% block content %}
+<div class="page-header">
+    <h2>New Contact</h2>
+</div>
       
       
   
