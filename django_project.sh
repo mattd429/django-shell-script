@@ -437,7 +437,7 @@ echo "${green}>>> Creating footer.html${reset}"
 cat << EOF > core/templates/footer.html
 <div id="footer">
   <div class="container">
-    <p class="credit pull-left">Example by <a href="https://github.com/rg3915/">Régis da Silva</a> &copy; 2016 &middot; <a href="">download</a></p>
+    <p class="credit pull-left">Example by <a href="https://github.com/mattd429/">Matt Brown</a> &copy; 2016 &middot; <a href="">download</a></p>
     <div class="socialfooter pull-center">
       <ul>
         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -519,3 +519,15 @@ cat << EOF > core/templates/pagination.html
 </div>
 <!-- https://www.technovelty.org/web/skipping-pages-with-djangocorepaginator.html -->
 EOF
+
+echo "${green}>>> Creating person_detail.html${reset}"
+cat << EOF > core/templates/core/person_detail.html
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Person Detail{% endblock title %}
+{% block content %}
+<ul class="breadcrumb">
+  <li><a href="{% url 'core:home' %}">Home</a> <span class="divider"></span></li>
+  <li><a href="{% url 'core:person_list' %}">Contatos</a> <span class="divider"></span></li>
+  <li class="active">{{ object.full_name }}</li>
+</ul>
