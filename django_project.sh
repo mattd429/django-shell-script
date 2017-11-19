@@ -627,6 +627,13 @@ cat << EOF > core/templates/core/person_detail.html
 </div>
 {% endblock content %}
 EOF
+
+echo "${green}>>> Creating person_form.html${reset}"
+cat << EOF > core/templates/core/person_form.html
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}Person Form{% endblock title %}
+{% block content %}
       
       
   
