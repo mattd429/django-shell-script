@@ -748,7 +748,7 @@ cat << EOF > core/templates/core/person_list.html
   </div>
 </form>
 <div class="page-header">
-<h2><h2><i class="fa fa-user"></i> Lista de Contatos</h2>
+<h2><h2><i class="fa fa-user"></i> List of Contracts</h2>
 </div>
 <div>
 
