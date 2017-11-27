@@ -751,6 +751,16 @@ cat << EOF > core/templates/core/person_list.html
 <h2><h2><i class="fa fa-user"></i> List of Contracts</h2>
 </div>
 <div>
+{% if person_list %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>UF</th>
+      </tr>
+    </thead>
 
 
 EOF
