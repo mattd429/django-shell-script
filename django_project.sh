@@ -807,5 +807,8 @@ cat << EOF >> .env
 DEBUG=True
 ALLOWED_HOSTS=127.0.0.1, .localhost
 EOF
-  
+
+echo "${green}>>> Editing settings.py${reset}"
+# insert text in line below of string
+sed -i "/import os/a\from decouple import config, Csv\nform dj_databse"
     
