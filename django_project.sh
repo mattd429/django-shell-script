@@ -790,9 +790,22 @@ cat << EOF > core/templates/core/person_list.html
 </div>
 {% include "pagination.html" %}
 {% endblock content %}
+EOF
 
+# up one level
+cd ..
 
-
+# ************ Editing FILES ******************
+echo "${green}>>> Refactor .env${reset}"
+# find SECRET_KEY
+grep "SECRET_KEY" $PROJECT/settings.py > .env
+#replace = 
+sed -i "s/ = /=/g" .env
+# replace '
+sed -i "s/'//g" .env
+cat << EOF >> .env
+DEBUG=True
+ALLOWED_HOSTS=127.0.0.1, .localhost
 EOF
   
     
