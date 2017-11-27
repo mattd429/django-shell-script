@@ -784,6 +784,12 @@ cat << EOF > core/templates/core/person_list.html
   <p class="alert alert-warning">No items in the list.</p>
 {% endif %}
 </div>
+<hr>
+<div>
+<h4><b>Total:</b> {{ page_obj.paginator.count }} contract{{ page_obj.paginator.count|pluralize }}</h4>
+</div>
+{% include "pagination.html" %}
+{% endblock content %}
 
 
 
