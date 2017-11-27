@@ -761,6 +761,25 @@ cat << EOF > core/templates/core/person_list.html
         <th>UF</th>
       </tr>
     </thead>
+    <tbody>
+    {% for person in person_list %}
+      <tr>
+        <td><a href="{{ person.get_absolute_url }}">{{ person.full_name }}</a></td>
+        <td>{{ person.email }}</td>
+        {% if person.phone_set.first %}
+          <td>{{ person.phone_set.first }} 
+            {% if person.phone_set.count > 1 %}
+              <a href="{{ person.get_absolute_url }}">+{{ person.phone_set.count|add:"-1" }}</a>
+            {% endif %}
+          </td>
+        {% else %}
+          <td>---</td>
+        {% endif %}
+        <td>{{ person.get_uf_display }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 
 
 EOF
