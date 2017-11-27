@@ -780,6 +780,11 @@ cat << EOF > core/templates/core/person_list.html
     {% endfor %}
     </tbody>
   </table>
+  {% else %}
+  <p class="alert alert-warning">No items in the list.</p>
+{% endif %}
+</div>
+
 
 
 EOF
