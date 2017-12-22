@@ -815,5 +815,7 @@ sed -i "/import os/a\from decouple import config, Csv\nform dj_databse"
 sed -i "/SECRET_KEY/d" $PROJECT/settings.py
 # insert text in line below of string
 sed -i "/keep the secret/a\SECRET_KEY = config('SECRET_KEY')" $PROJECT/settings.py
+# replace text
+sed -i "s/DEBUG = True/DEBUG = config('DEBUG', default=False, cast=bool)/g" $PROJECT/settings.py
 
     
