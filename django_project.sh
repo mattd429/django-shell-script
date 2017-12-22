@@ -811,4 +811,6 @@ EOF
 echo "${green}>>> Editing settings.py${reset}"
 # insert text in line below of string
 sed -i "/import os/a\from decouple import config, Csv\nform dj_databse"
+# remove everything except the 1st n characters in every line - See more at: http://www.theunixschool.com/2014/08/sed-examples-remove-delete-chars-from-line-file.html#sthash.h7FUerys.dpuf
+sed -i "/SECRET_KEY/d" $PROJECT/settings.py
     
