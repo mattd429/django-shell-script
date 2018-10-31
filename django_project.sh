@@ -818,6 +818,311 @@ sed -i "/keep the secret/a\SECRET_KEY = config('SECRET_KEY')" $PROJECT/settings.
 # replace text
 sed -i "s/DEBUG = True/DEBUG = config('DEBUG', default=False, cast=bool)/g" $PROJECT/settings.py
 sed -i "s/ALLOWED_HOSTS\ =\ \[\]/ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())/g" $PROJECT/settings.py
+# insert text in line below of string
+sed -i "/django.contrib.staticfiles/a\    # thirty apps\n    'widget_tweaks',\n    'daterange_filter',\n    'django_extensions',\n    \# my apps\n    '$PROJECT.core'," $PROJECT/settings.py
+# exclude lines
+sed -i "/DATABASES/d" $PROJECT/settings.py
+sed -i "/'default':/d" $PROJECT/settings.py
+sed -i "/ENGINE/d" $PROJECT/settings.py
+# exclude 3 lines
+sed -i "/db.sqlite3/,+3d" $PROJECT/settings.py
+# insert text after 'databases'
+sed -i "/databases/a default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')\nDATABASES = {\n    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),\n}" $PROJECT/settings.py
+# replace text
+sed -i "s/en-us/pt-br/g" $PROJECT/settings.py
+# replace text
+sed -i "s/UTC/America\/Sao_Paulo/g" $PROJECT/settings.py
+# insert text in line below of string
+sed -i "/USE_TZ/a\\\nUSE_THOUSAND_SEPARATOR = True\n\nDECIMAL_SEPARATOR = ','" $PROJECT/settings.py
+sed -i "/STATIC_URL/a\STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')\n\nLOGIN_URL = '/admin/login/'" $PROJECT/settings.py
 
+echo "${green}>>> Creating core/urls.py${reset}"
+cat << EOF > $PROJECT/core/urls.py
+from django.conf.urls import include, url
+from $PROJECT.core import views as c
+person_patterns = [
+    url(r'^$', c.PersonList.as_view(), name='person_list'),
+    url(r'^add/$', c.person_create, name='person_add'),
+    url(r'^(?P<pk>\d+)/$', c.person_detail, name='person_detail'),
+    url(r'^(?P<pk>\d+)/edit/$', c.person_update, name='person_edit'),
+    url(r'^(?P<pk>\d+)/delete/$', c.person_delete, name='person_delete'),
+]
+urlpatterns = [
+    url(r'^$', c.home, name='home'),
+    url(r'^person/', include(person_patterns)),
+]
+EOF
+
+echo "${green}>>> Editing urls.py${reset}"
+cat << EOF > $PROJECT/urls.py
+from django.conf.urls import include, url
+from django.contrib import admin
+urlpatterns = [
+    url(r'', include('$PROJECT.core.urls', namespace='core')),
+    url(r'^admin/', admin.site.urls),
+]
+EOF
+
+echo "${green}>>> Editing admin.py${reset}"
+cat << EOF > $PROJECT/core/admin.py
+from daterange_filter.filter import DateRangeFilter
+from django.contrib import admin
+from .models import Person, Phone
+from .forms import PersonForm
+class PhoneInline(admin.TabularInline):
+    model = Phone
+    extra = 1
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    inlines = [PhoneInline]
+    list_display = ('__str__', 'email', 'phone', 'uf', 'created', 'blocked')
+    date_hierarchy = 'created'
+    search_fields = ('first_name', 'last_name', 'email')
+    list_filter = (
+        # 'uf',
+        ('created', DateRangeFilter),
+    )
+    form = PersonForm
+    def phone(self, obj):
+        return obj.phone_set.first()
+    phone.short_description = 'telefone'
+EOF
+
+echo "${green}>>> Creating forms.py${reset}"
+cat << EOF > $PROJECT/core/forms.py
+from django import forms
+from .models import Person
+class PersonForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = ['first_name', 'last_name', 'email', 'address',
+                  'complement', 'district', 'city', 'uf', 'cep', 'blocked']
+EOF
+
+echo "${green}>>> Creating mixins.py${reset}"
+cat << EOF > $PROJECT/core/mixins.py
+from django.db.models import Q
+class NameSearchMixin(object):
+    def get_queryset(self):
+        queryset = super(NameSearchMixin, self).get_queryset()
+        q = self.request.GET.get('search_box')
+        if q:
+            return queryset.filter(
+                Q(first_name__icontains=q) |
+                Q(last_name__icontains=q) |
+                Q(email__icontains=q))
+        return queryset
+EOF
+
+echo "${green}>>> Editing models.py${reset}"
+cat << EOF > $PROJECT/core/models.py
+from django.db import models
+from django.shortcuts import resolve_url as r
+from localflavor.br.br_states import STATE_CHOICES
+PHONE_TYPE = (
+    ('pri', 'principal'),
+    ('com', 'comercial'),
+    ('res', 'residencial'),
+    ('cel', 'celular'),
+    ('cl', 'Claro'),
+    ('oi', 'Oi'),
+    ('t', 'Tim'),
+    ('v', 'Vivo'),
+    ('n', 'Nextel'),
+    ('fax', 'fax'),
+    ('o', 'outros'),
+)
+class TimeStampedModel(models.Model):
+    created = models.DateTimeField('criado em', auto_now_add=True, auto_now=False)
+    modified = models.DateTimeField('modificado em', auto_now_add=False, auto_now=True)
+    class Meta:
+        abstract = True
+class Address(models.Model):
+    address = models.CharField(u'endereço', max_length=100, blank=True)
+    complement = models.CharField('complemento', max_length=100, blank=True)
+    district = models.CharField('bairro', max_length=100, blank=True)
+    city = models.CharField('cidade', max_length=100, blank=True)
+    uf = models.CharField('UF', max_length=2, choices=STATE_CHOICES, blank=True)
+    cep = models.CharField('CEP', max_length=9, blank=True)
+    class Meta:
+        abstract = True
+class Person(TimeStampedModel, Address):
+    first_name = models.CharField('nome', max_length=50)
+    last_name = models.CharField('sobrenome', max_length=50, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    blocked = models.BooleanField('bloqueado', default=False)
+    class Meta:
+        ordering = ['first_name']
+        verbose_name = 'contato'
+        verbose_name_plural = 'contatos'
+    def __str__(self):
+        return ' '.join(filter(None, [self.first_name, self.last_name]))
+    full_name = property(__str__)
+    def get_absolute_url(self):
+        return r('core:person_detail', pk=self.pk)
+class Phone(models.Model):
+    phone = models.CharField('telefone', max_length=20, blank=True)
+    person = models.ForeignKey('Person')
+    phone_type = models.CharField('tipo', max_length=3, choices=PHONE_TYPE, default='pri')
+    def __str__(self):
+        return self.phone
+EOF
+
+echo "${green}>>> Editing views.py${reset}"
+cat << EOF > $PROJECT/core/views.py
+from django.shortcuts import render
+from django.core.urlresolvers import reverse_lazy as r
+from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import UpdateView, DeleteView
+from .mixins import NameSearchMixin
+from .models import Person
+from .forms import PersonForm
+def home(request):
+    return render(request, 'index.html')
+class PersonList(NameSearchMixin, ListView):
+    model = Person
+    paginate_by = 5
+person_detail = DetailView.as_view(model=Person)
+person_create = CreateView.as_view(model=Person, form_class=PersonForm)
+person_update = UpdateView.as_view(model=Person, form_class=PersonForm)
+person_delete = DeleteView.as_view(model=Person, success_url=r('core:person_list'))
+EOF
+
+
+echo "${green}>>> Creating shell_person.py${reset}"
+mkdir shell
+cat << EOF > shell/shell_person.py
+import string
+import random
+import csv
+from $PROJECT.core.models import Person, Phone
+PHONE_TYPE = ('pri', 'com', 'res', 'cel')
+person_list = []
+''' Read person.csv '''
+with open('fix/person.csv', 'r') as f:
+    r = csv.DictReader(f)
+    for dct in r:
+        person_list.append(dct)
+    f.close()
+''' Insert Persons '''
+obj = [Person(**person) for person in person_list]
+Person.objects.bulk_create(obj)
+def gen_phone():
+    digits_ = str(''.join(random.choice(string.digits) for i in range(11)))
+    return '{} 9{}-{}'.format(digits_[:2], digits_[3:7], digits_[7:])
+''' Insert Phones '''
+persons = Person.objects.all()
+for person in persons:
+    for i in range(1, random.randint(1, 5)):
+        Phone.objects.create(
+            person=person,
+            phone=gen_phone(),
+            phone_type=random.choice(PHONE_TYPE))
+# Done
+EOF
+
+echo "${green}>>> Creating person.csv${reset}"
+mkdir fix
+cat << EOF > fix/person.csv
+first_name,last_name,email,address,complement,district,city,uf,cep
+Adrian,Holovaty,holovaty@example.com,"Av. Ulisses Reis de Matos, 100",1º andar,Morumbi,São Paulo,SP,00568-602
+Alan,Turing,turing@example.com,"Av Pedroso de Morais, 1552",,Pinheiros,São Paulo,SP,05420-002
+Audrey,Roy Greenfeld,audrey.greenfeld@example.com,"Av 23 de Maio, 3041",,Vila Mariana,São Paulo,SP,04008-090
+Daniel,Roy Greenfeld,danny.greenfeld@example.com,"Rua Padre Machado, 68",10º andar,Vila Mariana,São Paulo,SP,04127-001
+Donald,Knuth,knuth@example.com,"Rua Miguel, 337",casa 2,Jardim Novo Pantanal,São Paulo,SP,04472-060
+Grace,Hopper,hopper@example.com,"Rua Colômbia, 659",,Jardim América,São Paulo,SP,01438-001
+Guido,Van Rossum,vanrossum@example.com,"Av. Pacaembú, 380",apto 501,Barra Funda,São Paulo,SP,01155-000
+Jacob,Kaplan Moss,kaplanmoss@example.com,"Av. Indianópolis, 100",3º andar,Indianópolis,São Paulo,SP,04062-000
+Peter,Baumgartner,baumgartner@example.com,"Rua Colômbia, 810",,Jardim América,São Paulo,SP,01438-001
+Simon,Willison,willison@example.com,"Av. Moreira Guimarães, 367",fundos,Moema,São Paulo,SP,04074-030
+EOF
+
+echo "${green}>>> Creating selenium_person.py${reset}"
+mkdir selenium
+cat << EOF > selenium/selenium_person.py
+import time
+import csv
+from random import randint
+from selenium import webdriver
+page = webdriver.Firefox()
+page.maximize_window()
+time.sleep(0.5)
+page.get('http://localhost:8000/person/add/')
+person_list = []
+''' Read person.csv '''
+with open('fix/person.csv', 'r') as f:
+    r = csv.DictReader(f)
+    for dct in r:
+        person_list.append(dct)
+    f.close()
+INDEX = randint(0, 9)
+fields = [
+    ['id_first_name', person_list[INDEX]['first_name']],
+    ['id_last_name', person_list[INDEX]['last_name']],
+    ['id_email', person_list[INDEX]['email']],
+    ['id_address', person_list[INDEX]['address']],
+    ['id_complement', person_list[INDEX]['complement']],
+    ['id_district', person_list[INDEX]['district']],
+    ['id_city', person_list[INDEX]['city']],
+    ['id_uf', person_list[INDEX]['city']],  # deixa city mesmo
+    ['id_cep', person_list[INDEX]['cep']],
+]
+for field in fields:
+    search = page.find_element_by_id(field[0])
+    search.send_keys(field[1])
+# button = page.find_element_by_id('id_submit')
+button = page.find_element_by_class_name('btn-primary')
+button.click()
+page.quit()
+EOF
+
+echo "${green}>>> Creating Makefile${reset}"
+cat << EOF > Makefile
+shell_person:
+tabpython manage.py shell < shell/shell_person.py
+selenium_person:
+tabpython selenium/selenium_person.py
+createuser:
+tabpython manage.py createsuperuser --username='admin' --email=''
+backup:
+tabpython manage.py dumpdata core --format=json --indent=2 > fixtures.json
+load:
+tabpython manage.py loaddata fixtures.json
+EOF
+
+sed -i "s/tab/\t/g" Makefile
+
+# migrate
+python manage.py makemigrations
+python manage.py migrate
+
+echo "${green}>>> Running tests${reset}"
+python manage.py test
+
+echo "${green}>>> Populating database...${reset}"
+python manage.py shell < shell/shell_person.py
+
+echo "${green}>>> Backup${reset}"
+python manage.py dumpdata core --format=json --indent=2 > fixtures.json
+
+echo -n "Create superuser? (y/N) "
+read answer
+if [ "$answer" == "y" ]; then
+    echo "${green}>>> Creating a 'admin' user ...${reset}"
+    echo "${green}>>> The password must contain at least 8 characters.${reset}"
+    echo "${green}>>> Password suggestions: demodemo${reset}"
+    python manage.py createsuperuser --username='admin' --email=''
+fi
+
+echo "${green}>>> Running tests again${reset}"
+python manage.py test
+
+echo "${green}>>> See the Makefile${reset}"
+cat Makefile
+
+echo "${red}>>> Important: Dont add .env in your public repository.${reset}"
+echo "${red}>>> KEEP YOUR SECRET_KEY AND PASSWORDS IN SECRET!!!\n${reset}"
+echo "${green}>>> Done${reset}"
+# https://www.gnu.org/software/sed/manual/sed.html
 
     
